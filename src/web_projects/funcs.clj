@@ -16,3 +16,16 @@
   "Check if a word is a palindrome"
   [word]
   (= word (clojure.string/reverse word)))
+
+(defn factorial
+  "Solve a factorial from a given number"
+  [number]
+  (loop [cnt number sum 1]
+    (if (zero? cnt)
+      sum
+      (recur (dec cnt) (* cnt sum)))))
+
+(defn permutation
+  "Solve a permutation given 2 numbers"
+  [n k]
+  (/ (factorial n) (factorial (- n k))))
