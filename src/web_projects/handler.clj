@@ -31,7 +31,7 @@
    (h/html [:ol (map
                  (fn [number]
                    [:li (fizzbuzz number)])
-                 (range 1 (+ 1 (Integer. num))))])
+                 (range 1 (+ 1 (read-string num))))])
    (layout "this is the fizzbuzz page")))
 
 (defn permutation-page
@@ -50,7 +50,7 @@
   (GET "/" [] (front-page))
   (GET "/p/:word" [word] (palindrome-page word))
   (GET "/f/:num" [num] (fizzbuzz-page num))
-  (GET "/m/p/:n..:k" [n k] (permutation-page (Integer. n) (Integer. k)))
+  (GET "/m/p/:n..:k" [n k] (permutation-page (read-string n) (read-string k)))
   (route/not-found (notfound-page)))
 
 (def app
