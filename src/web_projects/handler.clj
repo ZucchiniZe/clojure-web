@@ -21,13 +21,7 @@
   "The function that contructs the palindrome page"
   [word]
   (->>
-   (h/html [:p (str "is "
-                    word
-                    " a palindrome? "
-                    (if (palindrome? word)
-                      "yes"
-                      "no")
-                    ".")])
+   (h/html [:p "is " word " a palindrome? " (if (palindrome? word) "yes" "no") "."])
    (layout "this is the palindrome page")))
 
 (defn fizzbuzz-page
