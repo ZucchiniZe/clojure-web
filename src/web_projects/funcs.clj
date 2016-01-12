@@ -20,10 +20,10 @@
 (defn factorial
   "Solve a factorial from a given number"
   [number]
-  (loop [cnt number sum 1]
+  (loop [cnt number product 1]
     (if (zero? cnt)
-      sum
-      (recur (dec cnt) (* cnt sum)))))
+      product
+      (recur (dec cnt) (* (bigint cnt) (bigint product))))))
 
 (defn permutation
   "Solve a permutation given 2 numbers"
