@@ -6,15 +6,19 @@
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [hiccup.core :as h]))
 
+(def projects [["/f/100" "a fizzbuzz for 100 numbers"]
+               ["/p/racecar" "a palindrome checker"]
+               ["/m/p/10..3" "a permutation solver"]])
+
 (defn front-page []
   (->>
    (h/html [:div.page
             [:p "this website is a silly little site where I learn clojure and put the results online"]
             [:p "here is a list of stuff I have made so far"]
             [:ul
-             [:li [:a {:href "/f/100"} "a fizzbuzz for 100 numbers, you can change the url"]]
-             [:li [:a {:href "/p/racecar"} "a palindrome checker, you change the url"]]
-             [:li [:a {:href "/m/p/10..3"} "a permutation solver, again, you can change the url"]]]])
+             (map (fn [project] [:li
+                                 [:a {:href (first project)}
+                                  (last project) ", to change the input change the url"]]) projects)]])
    (layout nil)))
 
 (defn palindrome-page
