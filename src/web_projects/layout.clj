@@ -5,8 +5,10 @@
   (let [tagline (or line "Welcome to Web-Projects")]
     (page/html5
      [:head
-      [:title tagline]]
+      [:title tagline]
+      (page/include-css "css/style.css")]
      [:body
       [:div#header
        [:h1 tagline]]
-      [:div#main content]])))
+      [:div#main content]
+      (page/include-js "js/compiled/web-projects.js")])))

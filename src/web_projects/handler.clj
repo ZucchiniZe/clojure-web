@@ -55,6 +55,7 @@
   (GET "/p/:word" [word] (palindrome-page word))
   (GET "/f/:num" [num] (fizzbuzz-page num))
   (GET "/m/p/:n..:k" [n k] (permutation-page (read-string n) (read-string k)))
+  (route/resources "/")
   (route/not-found (notfound-page)))
 
 (def app
