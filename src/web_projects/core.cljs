@@ -1,15 +1,16 @@
-(ns web-projects.core)
+(ns web-projects.core
+  (:use [jayq.core :only [$ css html]])
+  (:require [jayq.core :as jq]))
 
 (enable-console-print!)
 
-(println "testing")
+(defonce state (atom false))
 
-(defn factorial
-  "compute a factorial"
-  [num]
-  (loop [cnt num sum 1]
-    (if (zero? cnt)
-      sum
-      (recur (dec cnt) (* cnt sum)))))
+(def $header ($ :#header>h1))
 
-(println "5! =" (factorial 5))
+(jq/bind $header :click
+         (fn [evt]
+           (html $header (do
+                           (swap! state not)
+                           (println "swapping state")
+                           (if @state "Yes" "No")))))

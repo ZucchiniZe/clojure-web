@@ -10,12 +10,14 @@
                  [org.clojure/core.async "0.2.374"]
                  [ring/ring-defaults "0.1.5"]
                  [compojure "1.4.0"]
-                 [hiccup "1.0.5"]]
+                 [hiccup "1.0.5"]
+                 [jayq "2.5.4"]]
 
   :plugins [[lein-ring "0.9.7"]
             [lein-cljsbuild "1.1.1"]
             [lein-figwheel "0.5.0-3"]]
 
+  ;; :hooks [leiningen.cljsbuild]
   :source-paths ["src"]
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
 
@@ -30,6 +32,7 @@
                            :source-map-timestamp true}}
                {:id "min"
                 :source-paths ["src"]
+                :jar true
                 :compiler {:output-to "resources/public/js/compiled/web-projects.js"
                            :main web-projects.core
                            :optimizations :advanced
