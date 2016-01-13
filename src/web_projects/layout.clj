@@ -6,9 +6,9 @@
     (page/html5
      [:head
       [:title tagline]
-      (page/include-css "css/style.css")]
+      (page/include-css "/css/style.css")]
      [:body
       [:div#header
        [:h1 tagline]]
       [:div#main content]
-      (page/include-js "js/compiled/web-projects.js")])))
+      (page/include-js "/js/compiled/web-projects.js")])))

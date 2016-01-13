@@ -22,8 +22,9 @@
   :cljsbuild {:builds
               [{:id "dev"
                 :source-paths ["src"]
+                :figwheel true
                 :compiler {:main web-projects.core
-                           :asset-path "js/compiled/out"
+                           :asset-path "/js/compiled/out"
                            :output-to "resources/public/js/compiled/web-projects.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true}}
@@ -35,8 +36,11 @@
                            :pretty-print false}}]}
 
   :figwheel {:css-dirs ["resources/public/css"]
+             :ring-handler web-projects.handler/app
              :open-file-command "emacsclient -n +$2 $1"}
+
   :ring {:handler web-projects.handler/app}
+
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}})
