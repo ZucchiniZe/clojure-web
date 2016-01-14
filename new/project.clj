@@ -19,7 +19,6 @@
                  [secretary "1.2.3"]
                  [venantius/accountant "0.1.6"
                   :exclusions [org.clojure/tools.reader]]
-                 
                  ]
 
   :plugins [[lein-environ "1.0.1"]
@@ -90,6 +89,11 @@
                                            org.clojure/core.async
                                            org.clojure/tools.analyzer.jvm]]
                              [org.clojure/clojurescript "1.7.170"]
+                             [cider/cider-nrepl "0.10.0-SNAPSHOT"]
+                             [org.clojure/tools.namespace "0.3.0-alpha2"
+                              :exclusions [org.clojure/tools.reader]]
+                             [refactor-nrepl "2.0.0-SNAPSHOT"
+                              :exclusions [org.clojure/clojure]]
                              ]
 
                    :injections [(require 'pjstadig.humane-test-output)
@@ -99,6 +103,8 @@
                               :server-port 3449
                               :nrepl-port 7002
                               :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"
+                                                 "cider.nrepl/cider-middleware"
+                                                 "refactor-nrepl.middleware/wrap-refactor"
                                                  ]
                               :css-dirs ["resources/public/css"]
                               :ring-handler web-projects.handler/app}

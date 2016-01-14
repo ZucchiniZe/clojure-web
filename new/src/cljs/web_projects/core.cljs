@@ -1,5 +1,6 @@
 (ns web-projects.core
   (:require [web-projects.util :as util]
+            [web-projects.components :as comp]
             [reagent.core :as reagent :refer [atom]]
             [reagent.session :as session]
             [secretary.core :as secretary :include-macros true]
@@ -18,28 +19,16 @@
 (defn home-page []
   [:div [:h2 "Welcome to web-projects"]
    [:p "this is a tiny website where I put my projects while learning clojure(script)"]
-   [:ul
-    (for [project projects]
-      ^{:key project} [:li [:a {:href (first project)} (last project)]])]])
+   [:p "but for now just go to the experiments page " [:a {:href "/experiments"} "over here"]]])
 
 (defn about-page []
   [:div [:h2 "About web-projects"]
    [:div [:a {:href "/"} "go to the home page"]]])
 
-(defn perm-input [val]
-  [:input {:type "number"
-           :value @val
-           :on-change #(reset! val (-> % .-target .-value))
-           :style {:width 40}}])
-
-(defn permutation-page []
-  (let [n (atom 10) k (atom 1)]
-    (fn []
-      [:div.permutation
-       [:p "make a permutation"]
-       [:sub  [perm-input n]] "P" [:sub [perm-input k]]
-       ;; fix the browser crashing when k > n and k == 0
-       [:p " = " (util/permutation @n @k)]])))
+(defn experiments-page []
+  [:div [:h2 "Assorted clojurescript experiments"]
+   [comp/palindrome]
+   [comp/permutation]])
 
 (defn current-page []
   [:div [(session/get :current-page)]])
@@ -49,6 +38,9 @@
 
 (secretary/defroute "/" []
   (session/put! :current-page #'home-page))
+
+(secretary/defroute "/experiments" []
+  (session/put! :current-page #'experiments-page))
 
 (secretary/defroute "/about" []
   (session/put! :current-page #'about-page))

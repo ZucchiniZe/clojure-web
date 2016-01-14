@@ -1,4 +1,5 @@
-(ns web-projects.util)
+(ns web-projects.util
+  (:require [clojure.string]))
 
 (defn fizzbuzz
   "Find the fizzbuzz for a number"

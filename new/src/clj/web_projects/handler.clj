@@ -29,7 +29,8 @@
   (html
    [:html
     [:head
-     [:meta {:charset "utf-8"}]]
+     [:meta {:charset "utf-8"}]
+     (include-css (if (env :dev) "css/site.css" "css/site.min.css"))]
     [:body
      mount-target
      (include-js "js/app_devcards.js")]]))
@@ -37,6 +38,7 @@
 (defroutes routes
   (GET "/" [] loading-page)
   (GET "/about" [] loading-page)
+  (GET "/experiments" [] loading-page)
   (GET "/cards" [] cards-page)
   (resources "/")
   (not-found "Not Found"))
