@@ -56,12 +56,6 @@
    (for [item items]
      ^{:key item} [:li (util/fizzbuzz (+ 1 item))])])
 
-;; (defn fizzbuzz []
-;;   (let [fiz (atom 25)]
-;;     [:div.fizzbuzz
-;;      [:p "here is a fizzbuzz for " [fizz-input fiz] " numbers"]
-;;      [fizzbuzz-list (range @fiz)]]))
-
 (defn fizzbuzz []
   (let [fizz (atom 20)]
     (fn []
