@@ -28,7 +28,8 @@
 (defn experiments-page []
   [:div [:h2 "Assorted clojurescript experiments"]
    [comp/palindrome]
-   [comp/permutation]])
+   [comp/permutation]
+   [comp/fizzbuzz]])
 
 (defn current-page []
   [:div [(session/get :current-page)]])
