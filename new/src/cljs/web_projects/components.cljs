@@ -1,6 +1,6 @@
 (ns web-projects.components
   (:require [web-projects.util :as util]
-            [reagent.core :as reagent :refer [atom]]))
+            [reagent.core :as r]))
 
 (defmulti input (fn [x] (:comp x)))
 (defmethod input :perm-one [a]
@@ -31,7 +31,7 @@
 ;; Permutation
 
 (defn permutation []
-  (let [n (atom 10) k (atom 1)]
+  (let [n (r/atom 10) k (r/atom 1)]
     (fn []
       [:div.permutation
        [:p "make a permutation"]
@@ -43,7 +43,7 @@
 ;; Palindrome
 
 (defn palindrome []
-  (let [word (atom "racecar")]
+  (let [word (r/atom "racecar")]
     (fn []
       [:div.palindrome
        [:p "check if your word is a palindrome"]
@@ -65,7 +65,7 @@
      ^{:key item} [:li (util/fizzbuzz (+ 1 item))])])
 
 (defn fizzbuzz []
-  (let [fizz (atom 20)]
+  (let [fizz (r/atom 20)]
     (fn []
       [:div.fizzbuzz
        [:p "Here is a fizzbuzz for " [input {:comp :fizzbuzz :input fizz}] " numbers"]

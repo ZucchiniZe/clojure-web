@@ -5,18 +5,17 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [ring-server "0.4.0"]
-                 [reagent "0.5.1"
-                  :exclusions [org.clojure/tools.reader]]
-                 [reagent-forms "0.5.13"]
-                 [reagent-utils "0.1.7"]
+                 [org.clojure/clojurescript "1.7.170" :scope "provided"]
                  [ring "1.4.0"]
+                 [ring-server "0.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [compojure "1.4.0"]
+                 [reagent "0.5.1"
+                  :exclusions [org.clojure/tools.reader]]
                  [hiccup "1.0.5"]
                  [environ "1.0.1"]
-                 [org.clojure/clojurescript "1.7.170" :scope "provided"]
                  [secretary "1.2.3"]
+                 [re-frame "0.6.0"]
                  [venantius/accountant "0.1.6"
                   :exclusions [org.clojure/tools.reader]]
                  ]

@@ -1,6 +1,5 @@
 (ns web-projects.cards
   (:require [reagent.core :as reagent :refer [atom]]
-            [reagent.session :as session]
             [web-projects.core :as core]
             [web-projects.components :as comp])
   (:require-macros
