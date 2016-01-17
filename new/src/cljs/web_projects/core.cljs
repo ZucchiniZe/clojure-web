@@ -1,6 +1,7 @@
 (ns web-projects.core
   (:require [reagent.core :as reagent]
-            [re-frame.core :as re-frame][web-projects.util :as util]
+            [re-frame.core :as rf]
+            [web-projects.util :as util]
             [web-projects.components :as comp]
             [web-projects.handlers]
             [web-projects.subs]
@@ -17,5 +18,5 @@
 
 (defn ^:export init! []
   (routes/app-routes)
-  (re-frame/dispatch-sync [:initialize-db])
+  (rf/dispatch-sync [:initialize-db])
   (mount-root))

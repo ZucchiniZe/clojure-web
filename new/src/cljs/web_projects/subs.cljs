@@ -1,32 +1,37 @@
 (ns web-projects.subs
   (:require-macros [reagent.ratom :refer [reaction]])
-  (:require [re-frame.core :as re-frame]))
+  (:require [re-frame.core :as rf]))
 
 ;; applictaion subs
 
-(re-frame/register-sub
+(rf/register-sub
  :active-panel
  (fn [db _]
    (reaction (:active-panel @db))))
 
-(re-frame/register-sub
+(rf/register-sub
  :database
  (fn [db]
    (reaction @db)))
 
 ;; component subs
 
-(re-frame/register-sub
+(rf/register-sub
  :name
  (fn [db]
    (reaction (:name @db))))
 
-(re-frame/register-sub
+(rf/register-sub
  :fizzbuzz
  (fn [db]
    (reaction (:fizzbuzz @db))))
 
-(re-frame/register-sub
+(rf/register-sub
  :palindrome
  (fn [db]
    (reaction (:palindrome @db))))
+
+(rf/register-sub
+ :permutation
+ (fn [db [_ key]]
+   (reaction (-> @db :permutation key))))

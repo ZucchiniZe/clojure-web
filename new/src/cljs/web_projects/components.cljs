@@ -1,6 +1,6 @@
 (ns web-projects.components
   (:require [web-projects.util :as util]
-            [re-frame.core :as re-frame]
+            [re-frame.core :as rf]
             [reagent.core :as r]))
 
 (defmulti input (fn [x] (:comp x)))
@@ -9,42 +9,41 @@
     [:span
      [:input.permutation {:type "number"
                           :value @n
-                          :on-change #(reset! n (-> % .-target .-value))}]
+                          :on-change #(rf/dispatch [:set-perm :n (-> % .-target .-value)])}]
      "P"
      [:input.permutation {:type "number"
                           :value @k
-                          :on-change (fn [evt]
-                                       (if (< @k @n)
-                                         (reset! k (-> evt .-target .-value))
-                                         (reset! k (- @n 1))))}]]))
+                          :on-change #(rf/dispatch [:set-perm :k (-> % .-target .-value)])}]]))
 (defmethod input :palindrome [a]
   (let [val (:input a)]
     [:input.palindrome {:type "text"
                         :value @val
-                        :on-change #(re-frame/dispatch [:set-palindrome (-> % .-target .-value)])}]))
+                        :on-change #(rf/dispatch [:set-palindrome (-> % .-target .-value)])}]))
 (defmethod input :fizzbuzz [a]
   (let [val (:input a)]
     [:input.fizzbuzz {:type "number"
                       :value @val
-                      :on-change #(re-frame/dispatch [:set-fizzbuzz (-> % .-target .-value)])}]))
+                      :on-change #(rf/dispatch [:set-fizzbuzz (-> % .-target .-value)])}]))
 
 ;; -------------------------
 ;; Permutation
 
 (defn permutation []
-  (let [n (r/atom 10) k (r/atom 1)]
+  (let [n (rf/subscribe [:permutation :n])
+        k (rf/subscribe [:permutation :k])]
     (fn []
       [:div.permutation
        [:p "make a permutation"]
        [input {:comp :perm :data {:n n :k k}}]
        ;; fix the browser crashing when k > n and k == 0
-       [:p " = " (util/permutation @n @k)]])))
+       [:p " = " (util/permutation @n @k)]
+       [:p @n "! = " (util/factorial @n)]])))
 
 ;; -------------------------
 ;; Palindrome
 
 (defn palindrome []
-  (let [word (re-frame/subscribe [:palindrome])]
+  (let [word (rf/subscribe [:palindrome])]
     (fn []
       [:div.palindrome
        [:p "check if your word is a palindrome"]
@@ -61,7 +60,7 @@
      ^{:key item} [:li (util/fizzbuzz (+ 1 item))])])
 
 (defn fizzbuzz []
-  (let [fizz (re-frame/subscribe [:fizzbuzz])]
+  (let [fizz (rf/subscribe [:fizzbuzz])]
     (fn []
       [:div.fizzbuzz
        [:p "Here is a fizzbuzz for " [input {:comp :fizzbuzz :input fizz}] " numbers"]

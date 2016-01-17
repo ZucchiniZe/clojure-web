@@ -136,4 +136,5 @@
                                             {:source-paths ["env/prod/cljs"]
                                              :compiler
                                              {:optimizations :advanced
+                                              :closure-defines {goog.DEBUG false}
                                               :pretty-print false}}}}}})

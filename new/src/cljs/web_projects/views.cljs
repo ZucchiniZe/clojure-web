@@ -1,39 +1,42 @@
 (ns web-projects.views
-  (:require [re-frame.core :as re-frame]
+  (:require [re-frame.core :as rf]
+            [web-projects.config :as config]
             [web-projects.components :as comp]))
 
 ;; Home
 
 (defn home-panel []
-  (let [name (re-frame/subscribe [:name]) db (re-frame/subscribe [:database])]
+  (let [name (rf/subscribe [:name])]
     (fn []
-      [:div "Hello from " @name ". This is the home page. "
-       [:a {:href "/experiments"} "go to the experiments page."]
+      [:div
+       [:span  "Hello from " @name ". This is the home page. "
+        [:a {:href "/experiments"} "go to the experiments page."]]
        [:input#name {:type "text" :placeholder "chamge name to..."}]
-       [:button {:on-click #(re-frame/dispatch [:set-name (.-value (.getElementById
-                                                                    js/document "name"))])} "change name"]
-       [:pre>code (.stringify js/JSON (clj->js @db) nil 2)]])))
+       [:button {:on-click #(rf/dispatch [:set-name (.-value (.getElementById
+                                                              js/document "name"))])} "change name"]])))
 
 ;; Experiments
 
 (defn experiments-panel []
-  (let [db (re-frame/subscribe [:database])]
-    (fn []
-      [:div
-       [:pre>code (.stringify js/JSON (clj->js @db) nil 2)]
-       [:h2 "Assorted clojurescript examples"]
-       [comp/palindrome]
-       [comp/permutation]
-       [comp/fizzbuzz]])))
+  (fn []
+    [:div
+     [:h2 "Assorted clojurescript examples"]
+     [comp/palindrome]
+     [comp/permutation]
+     [comp/fizzbuzz]]))
 
 ;; Main
 
 (defmulti panels identity)
-(defmethod panels :home-panel [] [home-panel])
-(defmethod panels :experiments-panel [] [experiments-panel])
+(defmethod panels :home [] [home-panel])
+(defmethod panels :experiments [] [experiments-panel])
 (defmethod panels :default [] [:div])
 
 (defn main-panel []
-  (let [active-panel (re-frame/subscribe [:active-panel])]
+  (let [active-panel (rf/subscribe [:active-panel]) db (rf/subscribe [:database])]
     (fn []
-      (panels @active-panel))))
+      [:div
+       (if config/debug? 
+         [:pre>code (.stringify js/JSON (clj->js @db) nil 2)]
+         [:h1 "Web Projects > " (clj->js @active-panel)])
+       [panels @active-panel]])))
