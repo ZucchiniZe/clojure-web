@@ -6,33 +6,39 @@
 
 (rf/register-handler
  :initialize-db
- (fn [_ _]
+ rf/trim-v
+ (fn []
    db/default-db))
 
 (rf/register-handler
  :set-active-panel
- (fn [db [_ active-panel]]
+ rf/trim-v
+ (fn [db [active-panel]]
    (assoc db :active-panel active-panel)))
 
 ;; component handlers
 
 (rf/register-handler
  :set-name
- (fn [db [_ new-name]]
+ rf/trim-v
+ (fn [db [new-name]]
    (assoc db :name new-name)))
 
 (rf/register-handler
  :set-fizzbuzz
- (fn [db [_ new-number]]
+ rf/trim-v
+ (fn [db [new-number]]
    (assoc db :fizzbuzz new-number)))
 
 (rf/register-handler
  :set-palindrome
- (fn [db [_ new-word]]
+ rf/trim-v
+ (fn [db [new-word]]
    (assoc db :palindrome new-word)))
 
 (rf/register-handler
  :set-perm
- (fn [db [_ key num]]
+ rf/trim-v
+ (fn [db [key num]]
    ;; (println key (-> db :permutation key))
    (assoc-in db [:permutation key] (js/parseInt num))))

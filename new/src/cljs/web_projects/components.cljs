@@ -33,7 +33,8 @@
         k (rf/subscribe [:permutation :k])]
     (fn []
       [:div.permutation
-       [:p "make a permutation"]
+       [:h3 "Permutation/factorial experiemtn!"]
+       [:p "this one was really hard. make a permutation"]
        [input {:comp :perm :data {:n n :k k}}]
        ;; fix the browser crashing when k > n and k == 0
        [:p " = " (util/permutation @n @k)]
@@ -46,6 +47,7 @@
   (let [word (rf/subscribe [:palindrome])]
     (fn []
       [:div.palindrome
+       [:h3 "Palindrome experiment"]
        [:p "check if your word is a palindrome"]
        [:p "is " [input {:comp :palindrome
                          :input word}] " a palindrome? "
@@ -63,5 +65,6 @@
   (let [fizz (rf/subscribe [:fizzbuzz])]
     (fn []
       [:div.fizzbuzz
+       [:h3 "Fizzbuzz experiment!"]
        [:p "Here is a fizzbuzz for " [input {:comp :fizzbuzz :input fizz}] " numbers"]
        [fizzbuzz-list (range @fizz)]])))

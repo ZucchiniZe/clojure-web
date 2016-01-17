@@ -20,7 +20,6 @@
 (defn experiments-panel []
   (fn []
     [:div
-     [:h2 "Assorted clojurescript examples"]
      [comp/palindrome]
      [comp/permutation]
      [comp/fizzbuzz]]))
@@ -36,7 +35,7 @@
   (let [active-panel (rf/subscribe [:active-panel]) db (rf/subscribe [:database])]
     (fn []
       [:div
-       (if config/debug? 
-         [:pre>code (.stringify js/JSON (clj->js @db) nil 2)]
-         [:h1 "Web Projects > " (clj->js @active-panel)])
+       (if config/debug?
+         [:pre>code (.stringify js/JSON (clj->js @db) nil 2)])
+       [:h1 "Web Projects > " (clj->js @active-panel)]
        [panels @active-panel]])))
