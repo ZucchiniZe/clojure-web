@@ -68,3 +68,14 @@
        [:h3 "Fizzbuzz experiment!"]
        [:p "Here is a fizzbuzz for " [input {:comp :fizzbuzz :input fizz}] " numbers"]
        [fizzbuzz-list (range @fizz)]])))
+
+;; -------------------------
+;; Devmode
+
+(defn dev-hud [db]
+  [:pre>code {:style {:position "fixed"
+                      :bottom 0
+                      :left 5}}
+   [:p {:style {:font-weight "bold"}} "debug menu "
+    [:button {:on-click #(rf/dispatch [:initialize-db])} "reset db"]]
+   (.stringify js/JSON (clj->js @db) nil 2)])

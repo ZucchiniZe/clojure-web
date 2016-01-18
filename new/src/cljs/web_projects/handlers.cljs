@@ -28,7 +28,7 @@
  :set-fizzbuzz
  rf/trim-v
  (fn [db [new-number]]
-   (assoc db :fizzbuzz new-number)))
+   (assoc db :fizzbuzz (js/parseInt new-number))))
 
 (rf/register-handler
  :set-palindrome

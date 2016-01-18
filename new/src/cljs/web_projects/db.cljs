@@ -5,4 +5,5 @@
    :fizzbuzz 20
    :palindrome "racecar"
    :permutation {:n 10
-                 :k 1}})
+                 :k 1}
+   :active-panel :home})

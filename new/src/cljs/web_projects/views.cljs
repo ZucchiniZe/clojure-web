@@ -36,6 +36,6 @@
     (fn []
       [:div
        (if config/debug?
-         [:pre>code (.stringify js/JSON (clj->js @db) nil 2)])
+         [comp/dev-hud db])
        [:h1 "Web Projects > " (clj->js @active-panel)]
        [panels @active-panel]])))
