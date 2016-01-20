@@ -1,6 +1,7 @@
 (ns web-projects.subs
   (:require-macros [reagent.ratom :refer [reaction]])
-  (:require [re-frame.core :as rf]))
+  (:require [re-frame.core :as rf]
+            [cljs.reader :as reader]))
 
 ;; applictaion subs
 
@@ -35,3 +36,13 @@
  :permutation
  (fn [db [_ key]]
    (reaction (-> @db :permutation key))))
+
+(rf/register-sub
+ :array
+ (fn [db]
+   (reaction (:array @db))))
+
+(rf/register-sub
+ :compl-array
+ (fn [db]
+   (reaction (reader/read-string (str "[" (:array @db) "]")))))

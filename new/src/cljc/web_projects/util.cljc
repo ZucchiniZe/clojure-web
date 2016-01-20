@@ -29,6 +29,6 @@
 (defn permutation
   "Solve a permutation given 2 numbers"
   [n k]
-  (if (and (< k n) (>= k 0))
+  (if (and (<= k n) (>= k 0))
     (/ (factorial n) (factorial (- n k)))
     "not calculable"))

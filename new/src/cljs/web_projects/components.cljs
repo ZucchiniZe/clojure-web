@@ -24,6 +24,11 @@
     [:input.fizzbuzz {:type "number"
                       :value @val
                       :on-change #(rf/dispatch [:set-fizzbuzz (-> % .-target .-value)])}]))
+(defmethod input :array [a]
+  (let [val (:input a)]
+    [:input.array-adder {:type "text"
+                         :value @val
+                         :on-change #(rf/dispatch [:set-array (-> % .-target .-value)])}]))
 
 ;; -------------------------
 ;; Permutation
@@ -37,7 +42,7 @@
        [:p "this one was really hard. make a permutation"]
        [input {:comp :perm :data {:n n :k k}}]
        ;; fix the browser crashing when k > n and k == 0
-       [:p " = " (util/permutation @n @k)]
+       [:p [:sub @n] "P" [:sub @k] " = " (util/permutation @n @k)]
        [:p @n "! = " (util/factorial @n)]])))
 
 ;; -------------------------
@@ -68,6 +73,18 @@
        [:h3 "Fizzbuzz experiment!"]
        [:p "Here is a fizzbuzz for " [input {:comp :fizzbuzz :input fizz}] " numbers"]
        [fizzbuzz-list (range @fizz)]])))
+
+;; -------------------------
+;; Array adder
+
+(defn array-adder []
+  (let [array (rf/subscribe [:array])
+        compl-array (rf/subscribe [:compl-array])]
+    (fn []
+      [:div.arrayadder
+       [:h3 "Array adding experiment"]
+       [:p "please enter a list of numbers seperated by space or comma" [input {:comp :array :input array}]]
+       [:p (apply str (interpose " + " @compl-array)) " = " (apply + @compl-array)]])))
 
 ;; -------------------------
 ;; Devmode

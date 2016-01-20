@@ -22,7 +22,8 @@
     [:div
      [comp/palindrome]
      [comp/permutation]
-     [comp/fizzbuzz]]))
+     [comp/fizzbuzz]
+     [comp/array-adder]]))
 
 ;; Main
 

@@ -6,4 +6,5 @@
    :palindrome "racecar"
    :permutation {:n 10
                  :k 1}
+   :array "1 2 3 4"
    :active-panel :home})

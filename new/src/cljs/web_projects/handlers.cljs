@@ -42,3 +42,9 @@
  (fn [db [key num]]
    ;; (println key (-> db :permutation key))
    (assoc-in db [:permutation key] (js/parseInt num))))
+
+(rf/register-handler
+ :set-array
+ rf/trim-v
+ (fn [db [new-array]]
+   (assoc db :array new-array)))
